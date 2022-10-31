@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { ShowTableComponent } from './show-table/show-table.component';
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {

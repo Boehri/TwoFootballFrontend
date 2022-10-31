@@ -12,7 +12,7 @@ export class ShowTableComponent implements OnInit {
   
   table: Array<TeaminTable> = [];
   selectedTable: TeaminTable | null = null;
-  selectedLeague: String = '';
+  public selectedLeague: String = '';
   leagues: String[] = [];
 
 
@@ -47,17 +47,18 @@ export class ShowTableComponent implements OnInit {
     this.selectedLeague=this.leagues[0];
   }
 
-  
+  public onLeagueChange():void{
+    this.getTableByLeague(this.selectedLeague);
+  }
 
   select(t: TeaminTable): void {
     this.selectedTable = t;
   }
 
-  onLeagueChange():void{
+  setselectedLeague(selectedLeague: String){
+    this.selectedLeague=selectedLeague;
     this.getTableByLeague(this.selectedLeague);
   }
-
-
-
+  
 
 }

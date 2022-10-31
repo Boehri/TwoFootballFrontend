@@ -9,7 +9,8 @@ import { TeaminTable } from './result';
 })
 export class OpenLigaDbService {
 
-  private leagues: String[] = ['bl1', 'bl2' , 'bl3']; 
+  private leagues: String[] = ['bl1', 'bl2' , 'bl3de']; 
+  private selectedLeague: String = 'bl1';
   constructor(private http: HttpClient) {
   }
 
@@ -32,8 +33,24 @@ export class OpenLigaDbService {
       `https://www.openligadb.de/api/getbltable/${league}/2022`
     );
   }
+
+  getcurrentTable():Observable<any>{
+
+    return this.http.get(
+      `https://www.openligadb.de/api/getbltable/${this.getselectedLeague}/2022`
+    );
+  }
   public getLeagues():String[]{
     return this.leagues;
+  }
+  public getselectedLeague():String{
+    return this.selectedLeague;
+  }
+  public setselectedLeague(selectedLeague: String){
+    this.selectedLeague = selectedLeague;
+  }
+  getCurrentGamedayByLeague(league: String): Observable<any>{
+      return this.http.get(`https://www.openligadb.de/api/getmatchdata/${league}`);
   }
   }
 

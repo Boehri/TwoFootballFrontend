@@ -1,9 +1,21 @@
-
-<select [(ngModel)]="selectedLeague" (change)="onLeagueChange()">
-  <option *ngFor="let league of leagues" [ngValue]="league">{{league}}</option>
-</select>
-
-
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">TwoFootball</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link">Mein&nbsp;Verein</a>
+      <a class="mdl-navigation__link" (click)="setselectedLeague('bl1')">1.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="setselectedLeague('bl2')">2.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="setselectedLeague('bl3de')">3.Bundesliga</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+<br>
+<h1>Tabelle</h1>  
+<hr>    
 <table>
   <tr>
     <td>Pos</td>
@@ -20,3 +32,16 @@
     <td>{{ team.Points }}</td>
   </tr>
 </table>
+
+<br>
+<hr>
+
+<h1>Ergebnisse Spieltag: </h1>
+
+
+    </div>
+  </main>
+</div>
+
+
+
