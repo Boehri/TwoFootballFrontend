@@ -5,7 +5,7 @@
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">TwoFootball</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link">Mein&nbsp;Verein</a>
+      <a class="mdl-navigation__link" (click)="myclub()">Mein&nbsp;Verein</a>
       <a class="mdl-navigation__link" (click)="setselectedLeague('bl1')">1.Bundesliga</a>
       <a class="mdl-navigation__link" (click)="setselectedLeague('bl2')">2.Bundesliga</a>
       <a class="mdl-navigation__link" (click)="setselectedLeague('bl3de')">3.Bundesliga</a>
@@ -14,6 +14,35 @@
   <main class="mdl-layout__content">
     <div class="page-content">
 <br>
+<h1>Ergebnisse Spieltag: {{selectedGameday}} </h1>
+
+
+  <select [(ngModel)]="selectedGameday" (change)="onGamedayChange()">
+  <option *ngFor="let gameday of gamedays" [ngValue]="gameday">{{gameday}}</option>
+</select>
+
+<table>
+  <tr class="gamedaytable">
+    <td>Datum</td>
+    <td>Team 1</td>
+    <td></td>
+    <td>Ergebnis</td>
+    <td></td>
+    <td>Team 2</td>
+  </tr>
+  <tr *ngFor="let match of gameday; index as i" class="table table-striped">
+    <td>{{i+1}}</td>
+    <td>{{match.MatchDateTime}}</td>
+    <td>{{match.Team1.TeamName}} </td>
+    <td><img src="{{match.Team1.TeamIconUrl}}"></td>
+    <td *ngIf="match.MatchIsFinished && match.MatchResults[0].ResultOrderID==1">{{match.MatchResults[0].PointsTeam1}} - {{match.MatchResults[0].PointsTeam2}}</td>
+    <td><img src="{{match.Team2.TeamIconUrl}}"></td>
+    <td>{{match.Team2.TeamName}}</td>
+  </tr>
+</table>
+<br>
+
+<div>
 <h1>Tabelle</h1>  
 <hr>    
 <table>
@@ -32,13 +61,9 @@
     <td>{{ team.Points }}</td>
   </tr>
 </table>
-
+</div>
 <br>
 <hr>
-
-<h1>Ergebnisse Spieltag: </h1>
-
-
     </div>
   </main>
 </div>

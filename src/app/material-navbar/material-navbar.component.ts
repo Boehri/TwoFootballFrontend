@@ -16,10 +16,5 @@ export class MaterialNavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  onLeagueChange(selectedLeague: String){
-    this.opendbligaservice.setselectedLeague(selectedLeague);
-  }
-
 }
 
