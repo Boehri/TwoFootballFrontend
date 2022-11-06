@@ -1,7 +1,8 @@
+import { group } from '@angular/animations';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, importProvidersFrom, OnInit } from '@angular/core';
 import { OpenLigaDbService } from '../open-liga-db.service';
-import { Match, TeaminTable } from '../result';
+import { currentgameday, Match, TeaminTable } from '../result';
 
 @Component({
   selector: 'app-show-table',
@@ -16,17 +17,18 @@ export class ShowTableComponent implements OnInit {
   gameday: Match[] = [];
   gamedays: number[] = [];
   selectedGameday: number = 1;
-  leaguepreference: String = 'bl2';
-  teampreference: number = 40;
+  leaguepreference: String = 'bl1';
+  teampreference: number = 16;
   allMatchesOfSeason: Match[] = [];
   listOfMatchesFromSelectedTeam: Match[] = [];
-  
+  currentGameday: number = 1;
 
   constructor(private opendbligdbaservice: OpenLigaDbService) {
+    this.getCurrentGameday(this.leaguepreference);
     this.getLeagues();
     this.getTable();
     this.getGamedays();
-    this.onGamedayChange();
+    this.myclub();
   }
 
   ngOnInit(): void {}
@@ -42,7 +44,6 @@ export class ShowTableComponent implements OnInit {
       },
     });
   }
-
   onGamedayChange(): void {
     this.getAllMatchesOfGameday(this.selectedGameday, this.selectedLeague);
   }
@@ -68,7 +69,9 @@ export class ShowTableComponent implements OnInit {
       this.selectedLeague = this.leagues[0];
   }
 
-  public onLeagueChange(): void {
+  public onLeagueChange(selectedLeague: String) {
+    this.selectedLeague = selectedLeague;
+    this.getCurrentGameday(this.selectedLeague);
     this.getTableByLeague(this.selectedLeague);
     this.getAllMatchesOfGameday(this.selectedGameday, this.selectedLeague);
   }
@@ -77,47 +80,55 @@ export class ShowTableComponent implements OnInit {
     this.selectedTable = t;
   }
 
-  setselectedLeague(selectedLeague: String) {
-    this.selectedLeague = selectedLeague;
-    this.getTableByLeague(this.selectedLeague);
-    this.getAllMatchesOfGameday(this.selectedGameday, this.selectedLeague);
-  }
-
   public async myclub() {
+    this.cleanMatches();
     this.getTableByLeague(this.leaguepreference);
-    
-    if(this.allMatchesOfSeason == undefined)
-      this.allMatchesOfSeason = await this.getAllMatchesOfSeason();
+
+    this.allMatchesOfSeason = await this.getAllMatchesOfSeason();
 
     this.showMatchesForTeampreference();
   }
 
-  async getAllMatchesOfSeason(): Promise<Match[]>{
-        let data = await this.opendbligdbaservice.getAllMatchesOfSeason().toPromise();
+  async getAllMatchesOfSeason(): Promise<Match[]> {
+    let data = await this.opendbligdbaservice
+      .getAllMatchesOfSeason()
+      .toPromise();
 
-        let matches: Match[] = [];
+    let matches: Match[] = [];
 
-        for (const dat of data) {
-          let match: Match = dat;
-          matches.push(match);
-        }
+    for (const dat of data) {
+      let match: Match = dat;
+      matches.push(match);
+    }
 
-        return matches;
-
+    return matches;
   }
 
-  showMatchesForTeampreference(){
-
+  showMatchesForTeampreference() {
     for (const match of this.allMatchesOfSeason) {
-      
       // not a match in which the selected team is? -> next
-      if(match.Team1.TeamId != this.teampreference && match.Team2.TeamId != this.teampreference)
+      if (                                  
+        match.Group.GroupOrderID < this.currentGameday - 8 ||                     // wenn Spieltag kleiner als aktueller Spieltag - 10, suche weiter, ansonsten hinzufügen 
+        match.Team1.TeamId != this.teampreference &&        //wenn Team 1 und Teampräferenz ungleich, suche weiter, ansonsten hinzufügen
+        match.Team2.TeamId != this.teampreference           //wenn Team 2 und Teampräferenz ungleich, suche weiter, ansonsten hinzufügen
+      )
         continue;
 
       // match with selected team? add to list
-      this.gameday.push(match)
-
+      this.gameday.push(match);
+    }
+    this.gameday.length = 10;
   }
-}
 
+  private cleanMatches(): void {
+    this.gameday = [];
+  }
+
+  public getCurrentGameday(league: String): void {
+    this.opendbligdbaservice
+      .getCurrentGamedayByLeague(league)
+      .subscribe((data) => {
+        this.currentGameday = data.GroupOrderID;
+      });
+  }
 }

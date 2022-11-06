@@ -26,6 +26,9 @@ export interface Match {
   Team1: TeamInMatch;
   Team2: TeamInMatch;
   MatchIsFinished: boolean;
+  Group: {
+      GroupOrderID: number; 
+  }
 }
 
 export interface currentgameday{

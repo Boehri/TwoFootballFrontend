@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { TeaminTable } from './result';
+import { currentgameday, TeaminTable } from './result';
 
 @Injectable({
   providedIn: 'root',
@@ -60,9 +60,9 @@ export class OpenLigaDbService {
 
   
   getCurrentGamedayByLeague(league: String): Observable<any> {
-    return this.http.get(
-      `https://www.openligadb.de/api/getmatchdata/${league}`
-    );
+      return (
+        this.http.get <currentgameday>(`https://www.openligadb.de/api/getcurrentgroup/${league}`)
+      );
   }
   
 }

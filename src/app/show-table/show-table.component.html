@@ -6,18 +6,22 @@
     <span class="mdl-layout-title">TwoFootball</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" (click)="myclub()">Mein&nbsp;Verein</a>
-      <a class="mdl-navigation__link" (click)="setselectedLeague('bl1')">1.Bundesliga</a>
-      <a class="mdl-navigation__link" (click)="setselectedLeague('bl2')">2.Bundesliga</a>
-      <a class="mdl-navigation__link" (click)="setselectedLeague('bl3de')">3.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl1')" >1.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl2')" >2.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl3de')">3.Bundesliga</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
 <br>
-<h1>Ergebnisse Spieltag: {{selectedGameday}} </h1>
 
+ <h1>Ergebnisse Spieltag: {{selectedGameday}} </h1>
 
-  <select [(ngModel)]="selectedGameday" (change)="onGamedayChange()">
+ Aktueller Spieltag: {{currentGameday}}
+
+<br>
+Wähle einen Spieltag aus: &nbsp;
+<select [(ngModel)]="selectedGameday" (change)="onGamedayChange()">
   <option *ngFor="let gameday of gamedays" [ngValue]="gameday">{{gameday}}</option>
 </select>
 
@@ -30,8 +34,7 @@
     <td></td>
     <td>Team 2</td>
   </tr>
-  <tr *ngFor="let match of gameday; index as i" class="table table-striped">
-    <td>{{i+1}}</td>
+  <tr *ngFor="let match of gameday" class="table table-striped">
     <td>{{match.MatchDateTime}}</td>
     <td>{{match.Team1.TeamName}} </td>
     <td><img src="{{match.Team1.TeamIconUrl}}"></td>
