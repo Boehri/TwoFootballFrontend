@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { currentgameday, TeaminTable } from './result';
+import { Verein, User, currentgameday, TeaminTable } from './result';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +63,17 @@ export class OpenLigaDbService {
       return (
         this.http.get <currentgameday>(`https://www.openligadb.de/api/getcurrentgroup/${league}`)
       );
+  }
+
+  getUserData():Observable<any>{
+    return this.http.get<User>(
+      `https://sheltered-thicket-12510.herokuapp.com/api/twofootball/nutzer/all`
+    );
+  }
+  getVereinData(): Observable<any>{
+    return this.http.get<Verein>(
+      `https://sheltered-thicket-12510.herokuapp.com/api/twofootball/verein/all`
+    )
   }
   
 }

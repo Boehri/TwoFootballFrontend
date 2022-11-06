@@ -1,6 +1,9 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
             mdl-layout--fixed-header">
   <header class="mdl-layout__header">
+    <div *ngFor="let team of Vereine" class="preference">
+        <div *ngIf="team.vereinID == teampreference"> {{team.verein}} ist dein Lieblingsverein!</div>
+    </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">TwoFootball</span>
@@ -15,9 +18,36 @@
     <div class="page-content">
 <br>
 
- <h1>Ergebnisse Spieltag: {{selectedGameday}} </h1>
+
+<div>
+<h1>Tabelle</h1>  
+<hr>    
+<table>
+  <tr>
+    <td>Pos</td>
+    <td></td>
+    <td>Name</td>
+    <td>Games</td>
+    <td>Points</td>
+  </tr>
+  <tr *ngFor="let team of table; index as i" class="table table-striped">
+    <td style="text-align: center">{{ i + 1 }}</td>
+    <td><img src="{{ team.TeamIconUrl }}" /></td>
+    <td>{{ team.TeamName }}</td>
+    <td>{{ team.Matches }}</td>
+    <td>{{ team.Points }}</td>
+  </tr>
+</table>
+</div>
+<br>
+<hr>
+
+
+<h1>Ergebnisse Spieltag: {{selectedGameday}} </h1>
+
 
  Aktueller Spieltag: {{currentGameday}}
+
 
 <br>
 Wähle einen Spieltag aus: &nbsp;
@@ -43,30 +73,7 @@ Wähle einen Spieltag aus: &nbsp;
     <td>{{match.Team2.TeamName}}</td>
   </tr>
 </table>
-<br>
 
-<div>
-<h1>Tabelle</h1>  
-<hr>    
-<table>
-  <tr>
-    <td>Pos</td>
-    <td></td>
-    <td>Name</td>
-    <td>Games</td>
-    <td>Points</td>
-  </tr>
-  <tr *ngFor="let team of table; index as i" class="table table-striped">
-    <td style="text-align: center">{{ i + 1 }}</td>
-    <td><img src="{{ team.TeamIconUrl }}" /></td>
-    <td>{{ team.TeamName }}</td>
-    <td>{{ team.Matches }}</td>
-    <td>{{ team.Points }}</td>
-  </tr>
-</table>
-</div>
-<br>
-<hr>
     </div>
   </main>
 </div>

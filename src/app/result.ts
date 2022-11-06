@@ -2,8 +2,7 @@ export interface TeaminTable{
     TeamName: String; 
     Matches: number;
     Points: number; 
-    TeamIconUrl: String;
-
+    TeamIconUrl: String; 
 }
 
 export interface TeamInMatch{
@@ -28,9 +27,22 @@ export interface Match {
   MatchIsFinished: boolean;
   Group: {
       GroupOrderID: number; 
-  }
+  }  
 }
 
 export interface currentgameday{
     GroudOrderID: number; 
+}
+
+export interface User{
+    nutzerEmail: String; 
+    nutzerID: String;
+    nutzerPraefVerein: number;
+    nutzerPraefLiga: number; 
+}
+
+export interface Verein{
+    ligaID: number; 
+    vereinID: number; 
+    verein: String; 
 }

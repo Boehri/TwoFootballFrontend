@@ -1,8 +1,10 @@
 import { group } from '@angular/animations';
+import { NgFor } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, importProvidersFrom, OnInit } from '@angular/core';
+import { UrlSerializer } from '@angular/router';
 import { OpenLigaDbService } from '../open-liga-db.service';
-import { currentgameday, Match, TeaminTable } from '../result';
+import { Verein, User, currentgameday, Match, TeaminTable } from '../result';
 
 @Component({
   selector: 'app-show-table',
@@ -19,9 +21,12 @@ export class ShowTableComponent implements OnInit {
   selectedGameday: number = 1;
   leaguepreference: String = 'bl1';
   teampreference: number = 16;
+  teampreferencename: String = '';
   allMatchesOfSeason: Match[] = [];
   listOfMatchesFromSelectedTeam: Match[] = [];
   currentGameday: number = 1;
+  Users: User[] = [];
+  Vereine: Verein[] = [];
 
   constructor(private opendbligdbaservice: OpenLigaDbService) {
     this.getCurrentGameday(this.leaguepreference);
@@ -29,6 +34,8 @@ export class ShowTableComponent implements OnInit {
     this.getTable();
     this.getGamedays();
     this.myclub();
+    this.getUserData();
+    this.getVereinData();
   }
 
   ngOnInit(): void {}
@@ -107,10 +114,10 @@ export class ShowTableComponent implements OnInit {
   showMatchesForTeampreference() {
     for (const match of this.allMatchesOfSeason) {
       // not a match in which the selected team is? -> next
-      if (                                  
-        match.Group.GroupOrderID < this.currentGameday - 8 ||                     // wenn Spieltag kleiner als aktueller Spieltag - 10, suche weiter, ansonsten hinzufügen 
-        match.Team1.TeamId != this.teampreference &&        //wenn Team 1 und Teampräferenz ungleich, suche weiter, ansonsten hinzufügen
-        match.Team2.TeamId != this.teampreference           //wenn Team 2 und Teampräferenz ungleich, suche weiter, ansonsten hinzufügen
+      if (
+        match.Group.GroupOrderID < this.currentGameday - 8 || // wenn Spieltag kleiner als aktueller Spieltag - 10, suche weiter, ansonsten hinzufügen
+        (match.Team1.TeamId != this.teampreference && //wenn Team 1 und Teampräferenz ungleich, suche weiter, ansonsten hinzufügen
+          match.Team2.TeamId != this.teampreference) //wenn Team 2 und Teampräferenz ungleich, suche weiter, ansonsten hinzufügen
       )
         continue;
 
@@ -130,5 +137,33 @@ export class ShowTableComponent implements OnInit {
       .subscribe((data) => {
         this.currentGameday = data.GroupOrderID;
       });
+  }
+
+  public getUserData(): void {
+    this.opendbligdbaservice.getUserData().subscribe({
+      next: (data) => {
+        this.Users = data;
+      },
+    });
+  }
+
+  public getVereinData(): void {
+    this.opendbligdbaservice.getVereinData().subscribe({
+      next: (data) => {
+        this.Vereine = data;
+      },
+    });
+  }
+
+  getUserPreferenceByMail(mail: String): void {
+    for (let user of this.Users) {
+      if (mail == user.nutzerEmail) {
+        this.teampreference = user.nutzerPraefVerein;
+      }
+    }
+  }
+
+  public zeigePraeferenz() {
+    this.getUserPreferenceByMail('noah.boehri29@gmail.com');
   }
 }
