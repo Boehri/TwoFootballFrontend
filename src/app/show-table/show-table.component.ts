@@ -1,6 +1,7 @@
 import { group } from '@angular/animations';
 import { NgFor } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, importProvidersFrom, OnInit } from '@angular/core';
 import { UrlSerializer } from '@angular/router';
 import { OpenLigaDbService } from '../open-liga-db.service';
@@ -18,7 +19,7 @@ export class ShowTableComponent implements OnInit {
   leagues: String[] = [];
   gameday: Match[] = [];
   gamedays: number[] = [];
-  selectedGameday: number =1;
+  selectedGameday: number = 1;
   leaguepreference: String = 'bl1';
   teampreference: number = 16;
   teampreferencename: String = '';
@@ -27,11 +28,11 @@ export class ShowTableComponent implements OnInit {
   currentGameday: number = 1;
   Users: User[] = [];
   Vereine: Verein[] = [];
-  showMailInput: Boolean = true; 
-  UserMail: String = '';
-
+  showMailInput: Boolean = true;
+  UserEmail: string = '';
 
   constructor(private opendbligdbaservice: OpenLigaDbService) {
+    this.getUserEmail();
     this.getCurrentGameday(this.leaguepreference);
     this.getLeagues();
     this.getTable();
@@ -43,7 +44,16 @@ export class ShowTableComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  private getGamedays() {
+  logout() {
+    localStorage.clear();
+  }
+
+  async getUserEmail() {
+    let UserEmail: any = localStorage.getItem('user');
+    this.UserEmail = await UserEmail;
+  }
+
+  private getGamedays(): void {
     this.gamedays = this.opendbligdbaservice.getGamedays();
   }
 
@@ -158,16 +168,11 @@ export class ShowTableComponent implements OnInit {
     });
   }
 
-  getUserPreferenceByMail(mail: String): void {
+  getUserPreferenceByMail(){
     for (let user of this.Users) {
-      if (mail == user.nutzerEmail) {
+      if (user.nutzerEmail === this.UserEmail) {
         this.teampreference = user.nutzerPraefVerein;
       }
     }
   }
-
-  public zeigePraeferenz() {
-    this.getUserPreferenceByMail('noah.boehri29@gmail.com');
-  }
-
 }

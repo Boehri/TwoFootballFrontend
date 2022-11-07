@@ -8,7 +8,7 @@ import { User } from '../result';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  UserEmail: String = '';
+  UserEmail: string = '';
   Users: User[] = [];
   UserLoggedIn: boolean = false;
   test: number = 1;  
@@ -29,11 +29,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  checkMail() {
+  async checkMail() {
     for(const user of this.Users){
-      if(this.UserEmail == user.nutzerEmail ){
-        this.UserLoggedIn = true;
+      if(user.nutzerEmail === this.UserEmail ){
+        this.UserLoggedIn = true; 
+        alert('Du bist eingeloggt!');
+        localStorage.setItem('user', this.UserEmail);
       }  
+    }
+    if (this.UserLoggedIn == false) {
+      alert('Bitte gib eine korrekte Email ein!')
+      localStorage.setItem('user', this.UserEmail);
     }
   }
 }

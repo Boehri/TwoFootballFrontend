@@ -6,19 +6,16 @@
 
     <hr>
     <div class="formular">
-    <form (ngSubmit)="checkMail()">  
+    <form>  
         <h2>Login</h2> 
              
         <div class="inputs-container">
-                <input [(ngModel)]="UserEmail"  type="text" name="UserEmail" placeholder="Email">
+                <input [(ngModel)]="UserEmail" type="text" name="UserEmail" placeholder="Email">
                 
         </div>
         Sie haben noch kein Konto? <br>
-        <a class="register" [routerLink] = "['/registration']">Jetzt registrieren!</a> <br>
-        <button [routerLink] = "['/results']" type="submit" value ="submit">submit</button> <br>
-        {{UserEmail}} <br>
-        {{UserLoggedIn}} <br>
-        {{test}}
+        <a class="register" [routerLink] = "['/register']">Jetzt registrieren!</a> <br>
+        <button type="submit" (click)="checkMail()" [routerLink] = "['/results']" value ="submit">submit</button> <br>     <!--[routerLink] = "['/results']"-->
     </form>
     </div>
 </div>

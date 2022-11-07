@@ -1,17 +1,15 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
             mdl-layout--fixed-header">
   <header class="mdl-layout__header">
-    <div *ngFor="let team of Vereine" class="preference">
-        <div *ngIf="team.vereinID == teampreference"> {{team.verein}} ist dein Lieblingsverein!</div>
-    </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">TwoFootball</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" (click)="myclub()">Mein&nbsp;Verein</a>
-      <a class="mdl-navigation__link" (click)="onLeagueChange('bl1')" >1.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="myclub()" (click)="getUserPreferenceByMail()">Mein&nbsp;Verein</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl1')"  >1.Bundesliga</a>
       <a class="mdl-navigation__link" (click)="onLeagueChange('bl2')" >2.Bundesliga</a>
       <a class="mdl-navigation__link" (click)="onLeagueChange('bl3de')">3.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="logout()" [routerLink] = "['/login']">Logout</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -20,7 +18,7 @@
 
 
 <div>
-<h1>Tabelle</h1>  
+<h1>Aktuelle Tabelle</h1>  
 <hr>    
 <table>
   <tr>
@@ -43,10 +41,7 @@
 <hr>
 
 
-<h1>Matchergebnisse: {{selectedGameday}} </h1>
-
-
-<br>
+<h1>Matchergebnisse</h1>
 
  Aktueller Spieltag: {{currentGameday}}
 

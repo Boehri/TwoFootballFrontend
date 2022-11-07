@@ -1,26 +1,41 @@
 <div class="body">
-    <div class="navbar">
-		 <h1 class="header" >TwoFootball</h1> 
-	</div>
+  <div class="navbar">
+    <h1 class="header">TwoFootball</h1>
+  </div>
 
-    <hr>
-    <div class="formular">
-    <form>  
-        <h2>Registrierung</h2> 
-             
-        <div class="inputs-container">
-                <input [(ngModel)]="UserEmail" type="text" name="UserEmail" placeholder="Email">
+  <hr />
+  <div class="formular">
+    <form>
+      <h2>Registrierung</h2>
 
-                <select class="select" [(ngModel)]="selectedTeam">
-                    <option *ngFor="let verein of Vereine" [ngValue]="verein.vereinID">{{verein.verein}}</option>
-                </select>
-                
+      <div class="inputs-container">
+        Email:   
+        <div>
+          <input [(ngModel)]="UserEmail"  type="text" name="UserEmail" placeholder="Email" required>
         </div>
-        Sie haben bereits ein Konto? <br>
-        <a class="register" [routerLink] = "['/login']">Log In</a> <br>
-        <button type="submit" value ="submit">submit</button> <br>
-        {{UserEmail}}
-        {{selectedTeam}}
+
+        Verein: 
+        <select class="select" [(ngModel)]="selectedTeam" name="selectedTeam" required>
+          <option *ngFor="let verein of Vereine" [ngValue]="verein.vereinID">
+            {{ verein.verein }}
+          </option>
+        </select>
+        
+        Liga: 
+        <select class="select" [(ngModel)]="selectedLeague" name="selectedLeague" required>
+          <option *ngFor="let liga of Ligen" [ngValue]="liga.ligaID">
+            {{ liga.liga }}
+          </option>
+        </select>
+
+        <div> 
+
+        </div>
+        
+      </div>
+      Sie haben bereits ein Konto? <br />
+      <a class="register" [routerLink]="['/login']">Log In</a> <br />
+      <button type="submit" (click)="onSubmit()"[routerLink]="['/login']" value="submit">submit</button> <br />
     </form>
-    </div>
+  </div>
 </div>

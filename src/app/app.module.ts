@@ -12,7 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
    {path: 'login', component: LoginComponent},
    {path: 'results', component: ShowTableComponent},
-   {path: 'registration', component: RegisterComponent},
+   {path: 'register', component: RegisterComponent},
    {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
@@ -28,7 +28,7 @@ const routes: Routes = [
       AppComponent,
       ShowTableComponent,
       LoginComponent,
-      RegisterComponent
+      RegisterComponent,
    ],
    providers: [],
    bootstrap: [

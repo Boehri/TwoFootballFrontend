@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenLigaDbService } from '../open-liga-db.service';
-import { Verein } from '../result';
+import { Liga, Verein } from '../result';
+import { AccountServiceService } from '../services/account-service.service';
 
 @Component({
   selector: 'app-register',
@@ -8,13 +9,20 @@ import { Verein } from '../result';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  Vereine: Verein[] = []; 
-  selectedTeam: String = '';
-  vereinID: number | undefined;
+  Vereine: Verein[] = [];
+  Ligen: Liga[] = [];
+  selectedTeam = '';
+  vereinID: number = 1;
   UserEmail: String = '';
+  selectedLeague = '';
+  test: String = 'hallo';
 
-  constructor(private opendbligdbaservice: OpenLigaDbService) {
+  constructor(
+    private opendbligdbaservice: OpenLigaDbService,
+    private accountservice: AccountServiceService
+  ) {
     this.getVereinData();
+    this.getLigaData();
   }
 
   ngOnInit(): void {}
@@ -26,13 +34,39 @@ export class RegisterComponent implements OnInit {
       },
     });
   }
-  getVereinIDBySelectedTeam(selectedTeam: String){
-    for(const verein of this.Vereine){
-      if(selectedTeam != verein.verein){
-        continue;
+  /*
+  getVereinIDBySelectedTeam(selectedTeam: String):void {
+      for(let verein of this.Vereine){
+        if(selectedTeam === verein.verein){
+        this.test = 'in if';
       }
-      this.vereinID = verein.vereinID; 
+        
+      }
+    
 
-    }
+  }
+*/
+  public getLigaData(): void {
+    this.opendbligdbaservice.getLigaData().subscribe({
+      next: (data) => {
+        this.Ligen = data;
+      },
+    });
+  }
+
+  storeUserOnDB(): void {
+    alert(
+      'Du bist registriert mit folgender Email: ' +
+        this.UserEmail 
+    );
+    let user = {
+      email: this.UserEmail,
+      praefverein: parseInt(this.selectedTeam),
+      praefliga: parseInt(this.selectedLeague),
+    };
+    this.accountservice.addData(user);
+  }
+  onSubmit() {
+    this.storeUserOnDB();
   }
 }

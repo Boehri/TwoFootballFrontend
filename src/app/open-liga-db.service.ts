@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { Verein, User, currentgameday, TeaminTable } from './result';
+import { Liga, Verein, User, currentgameday, TeaminTable } from './result';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,9 @@ export class OpenLigaDbService {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
   ];
-  constructor(private http: HttpClient) {}
+  private teampreference: number | undefined; 
+  constructor(private http: HttpClient) {
+  }
 
   public getCompleteGameday(gameday: number, league: String): Observable<any> {
     if (gameday == undefined)
@@ -74,6 +76,11 @@ export class OpenLigaDbService {
     return this.http.get<Verein>(
       `https://sheltered-thicket-12510.herokuapp.com/api/twofootball/verein/all`
     )
+  }
+  getLigaData():Observable<any>{
+    return this.http.get<Liga>(
+      `https://sheltered-thicket-12510.herokuapp.com/api/twofootball/liga/all`
+    );
   }
   
 }
