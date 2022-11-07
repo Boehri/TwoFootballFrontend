@@ -18,7 +18,7 @@ export class ShowTableComponent implements OnInit {
   leagues: String[] = [];
   gameday: Match[] = [];
   gamedays: number[] = [];
-  selectedGameday: number = 1;
+  selectedGameday: number =1;
   leaguepreference: String = 'bl1';
   teampreference: number = 16;
   teampreferencename: String = '';
@@ -27,6 +27,9 @@ export class ShowTableComponent implements OnInit {
   currentGameday: number = 1;
   Users: User[] = [];
   Vereine: Verein[] = [];
+  showMailInput: Boolean = true; 
+  UserMail: String = '';
+
 
   constructor(private opendbligdbaservice: OpenLigaDbService) {
     this.getCurrentGameday(this.leaguepreference);
@@ -166,4 +169,5 @@ export class ShowTableComponent implements OnInit {
   public zeigePraeferenz() {
     this.getUserPreferenceByMail('noah.boehri29@gmail.com');
   }
+
 }

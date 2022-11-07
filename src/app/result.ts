@@ -35,8 +35,7 @@ export interface currentgameday{
 }
 
 export interface User{
-    nutzerEmail: String; 
-    nutzerID: String;
+    nutzerEmail: String;
     nutzerPraefVerein: number;
     nutzerPraefLiga: number; 
 }
