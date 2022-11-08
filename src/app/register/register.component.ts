@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenLigaDbService } from '../open-liga-db.service';
-import { Liga, Verein } from '../result';
+import { Liga, Verein } from '../open-liga-db-interface';
 import { AccountServiceService } from '../services/account-service.service';
 
 @Component({
@@ -34,18 +34,7 @@ export class RegisterComponent implements OnInit {
       },
     });
   }
-  /*
-  getVereinIDBySelectedTeam(selectedTeam: String):void {
-      for(let verein of this.Vereine){
-        if(selectedTeam === verein.verein){
-        this.test = 'in if';
-      }
-        
-      }
-    
 
-  }
-*/
   public getLigaData(): void {
     this.opendbligdbaservice.getLigaData().subscribe({
       next: (data) => {

@@ -1,20 +1,19 @@
 * {
   margin: 0;
   padding: 0;
-  color: white;
+  color: black;
   font-family: sans-serif;
 }
-.body {
+body {
   height: 100%;
   background-color: #222831;
-  color: white;
 }
 form {
   height: 80%;
   padding: 40px;
-  background-color: #222831;
+  background-color: white;
   border-width: 10px;
-
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,7 +26,6 @@ form {
   height: 100%;
 }
 h2 {
-  color: white;
   font-family: Tahoma, sans-serif;
   font-size: 38px;
   line-height: 60px;
@@ -106,9 +104,6 @@ button:focus {
   align-items: center;
   background-color: #222831;
   height: 10%;
-}
-a {
-  color: white;
 }
 a:hover {
   color: rgb(46, 189, 63);

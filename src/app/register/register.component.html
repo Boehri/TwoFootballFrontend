@@ -2,8 +2,7 @@
   <div class="navbar">
     <h1 class="header">TwoFootball</h1>
   </div>
-
-  <hr />
+  <br>
   <div class="formular">
     <form>
       <h2>Registrierung</h2>
@@ -14,17 +13,17 @@
           <input [(ngModel)]="UserEmail"  type="text" name="UserEmail" placeholder="Email" required>
         </div>
 
-        Verein: 
-        <select class="select" [(ngModel)]="selectedTeam" name="selectedTeam" required>
-          <option *ngFor="let verein of Vereine" [ngValue]="verein.vereinID">
-            {{ verein.verein }}
-          </option>
-        </select>
-        
         Liga: 
         <select class="select" [(ngModel)]="selectedLeague" name="selectedLeague" required>
           <option *ngFor="let liga of Ligen" [ngValue]="liga.ligaID">
             {{ liga.liga }}
+          </option>
+        </select>
+
+        Verein: 
+        <select class="select" [(ngModel)]="selectedTeam" name="selectedTeam" required>
+          <option *ngFor="let verein of Vereine" [ngValue]="verein.vereinID">
+            {{ verein.verein }}
           </option>
         </select>
 

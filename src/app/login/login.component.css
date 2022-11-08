@@ -1,17 +1,16 @@
 * {
   margin: 0;
   padding: 0;
-  color: white;
+  color: black;
   font-family: sans-serif;
 }
 .body {
   height: 100%;
   background-color: #222831;
-  color: white;
 }
 form {
   padding: 40px;
-  background-color: #222831;
+  background-color: white;
   border-width: 10px;
 
   display: flex;
@@ -26,7 +25,6 @@ form {
   height: 100%;
 }
 h2 {
-  color: white;
   font-family: Tahoma, sans-serif;
   font-size: 38px;
   line-height: 60px;
@@ -47,7 +45,6 @@ input {
   border: none;
   background-color: #373e49;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.212);
-  color: white;
   font-size: 20px;
   transition: 0.2s;
   text-align: start;
@@ -105,9 +102,6 @@ button:focus {
   align-items: center;
   background-color: #222831;
   height: 10%;
-}
-a {
-  color: white;
 }
 a:hover {
   color: rgb(46, 189, 63);

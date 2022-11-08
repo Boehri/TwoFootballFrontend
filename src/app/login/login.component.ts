@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenLigaDbService } from '../open-liga-db.service';
-import { User } from '../result';
+import { User } from '../open-liga-db-interface';
 
 @Component({
   selector: 'app-login',

@@ -22,31 +22,6 @@
     <div class="page-content">
 <br>
 
-
-<div>
-<h1>Aktuelle Tabelle</h1>  
-<hr>    
-<table>
-  <tr>
-    <td>Pos</td>
-    <td></td>
-    <td>Name</td>
-    <td>Games</td>
-    <td>Points</td>
-  </tr>
-  <tr *ngFor="let team of table; index as i" class="table table-striped">
-    <td style="text-align: center">{{ i + 1 }}</td>
-    <td><img src="{{ team.TeamIconUrl }}" /></td>
-    <td>{{ team.TeamName }}</td>
-    <td>{{ team.Matches }}</td>
-    <td>{{ team.Points }}</td>
-  </tr>
-</table>
-</div>
-<br>
-<hr>
-
-
 <h1>Matchergebnisse</h1>
 
  Aktueller Spieltag: {{currentGameday}}
@@ -69,17 +44,48 @@ Wähle einen Spieltag aus: &nbsp;
   </tr>
   <tr *ngFor="let match of gameday" class="table table-striped">
     <td>{{match.MatchDateTime}}</td>
-    <td>{{match.Team1.TeamName}} </td>
+    <td>{{match.Team1.TeamName}}</td>
     <td><img src="{{match.Team1.TeamIconUrl}}"></td>
     <td *ngIf="match.MatchIsFinished && match.MatchResults[0].ResultOrderID==1">{{match.MatchResults[0].PointsTeam1}} - {{match.MatchResults[0].PointsTeam2}}</td>
+    <td *ngIf="match.MatchIsFinished == false">&nbsp; - : -</td>
     <td><img src="{{match.Team2.TeamIconUrl}}"></td>
     <td>{{match.Team2.TeamName}}</td>
   </tr>
 </table>
 
+<hr>
+<div>
+<h1>Aktuelle Tabelle</h1>  
+   
+<table>
+  <tr>
+    <td>Pos</td>
+    <td></td>
+    <td>Name</td>
+    <td>Games</td>
+    <td>Points</td>
+  </tr>
+  <tr *ngFor="let team of table; index as i" class="table table-striped">
+    <td style="text-align: center">{{ i + 1 }}</td>
+    <td><img src="{{ team.TeamIconUrl }}" /></td>
+    <td>{{ team.TeamName }}</td>
+    <td>{{ team.Matches }}</td>
+    <td>{{ team.Points }}</td>
+  </tr>
+</table>
+</div>
+
+
+
+
+
+
+
     </div>
   </main>
 </div>
+
+
 
 
 

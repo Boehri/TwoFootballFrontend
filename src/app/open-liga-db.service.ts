@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { Liga, Verein, User, currentgameday, TeaminTable } from './result';
+import { Liga, Verein, User, currentgameday, TeaminTable } from './open-liga-db-interface';
 
 @Injectable({
   providedIn: 'root',

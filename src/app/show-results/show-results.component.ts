@@ -5,14 +5,14 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, importProvidersFrom, OnInit } from '@angular/core';
 import { UrlSerializer } from '@angular/router';
 import { OpenLigaDbService } from '../open-liga-db.service';
-import { Verein, User, currentgameday, Match, TeaminTable } from '../result';
+import { Verein, User, currentgameday, Match, TeaminTable } from '../open-liga-db-interface';
 
 @Component({
-  selector: 'app-show-table',
-  templateUrl: './show-table.component.html',
-  styleUrls: ['./show-table.component.scss'],
+  selector: 'app-show-results',
+  templateUrl: './show-results.component.html',
+  styleUrls: ['./show-results.component.scss'],
 })
-export class ShowTableComponent implements OnInit {
+export class ShowResultsComponent implements OnInit {
   table: TeaminTable[] = [];
   selectedTable: TeaminTable | null = null;
   public selectedLeague: String = 'bl1';
@@ -33,7 +33,7 @@ export class ShowTableComponent implements OnInit {
 
   constructor(private opendbligdbaservice: OpenLigaDbService) {
     this.getUserEmail();
-    this.getCurrentGameday(this.leaguepreference);
+    this.onLeagueChange('bl1');
     this.getLeagues();
     this.getTable();
     this.getGamedays();
@@ -168,7 +168,7 @@ export class ShowTableComponent implements OnInit {
     });
   }
 
-  getUserPreferenceByMail(){
+  getUserPreferenceByMail() {
     for (let user of this.Users) {
       if (user.nutzerEmail === this.UserEmail) {
         this.teampreference = user.nutzerPraefVerein;

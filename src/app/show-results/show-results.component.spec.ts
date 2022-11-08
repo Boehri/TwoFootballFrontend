@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowTableComponent } from './show-table.component';
+import { ShowResultsComponent } from './show-results.component';
 
 describe('ShowTableComponent', () => {
-  let component: ShowTableComponent;
-  let fixture: ComponentFixture<ShowTableComponent>;
+  let component: ShowResultsComponent;
+  let fixture: ComponentFixture<ShowResultsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShowTableComponent ]
-    })
-    .compileComponents();
+      declarations: [ShowResultsComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(ShowTableComponent);
+    fixture = TestBed.createComponent(ShowResultsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
