@@ -1,0 +1,91 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+      </div>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">TwoFootball</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" (click)="myclub()" (click)="getUserPreferenceByMail()">Mein&nbsp;Verein</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl1')"  >1.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl2')" >2.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="onLeagueChange('bl3de')">3.Bundesliga</a>
+      <a class="mdl-navigation__link" (click)="logout()" [routerLink] = "['/login']">Logout</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+<br>
+
+<h1>Matchergebnisse</h1>
+
+ Aktueller Spieltag: {{currentGameday}}
+
+
+<br>
+Wähle einen Spieltag aus: &nbsp;
+<select [(ngModel)]="selectedGameday" (change)="onGamedayChange()">
+  <option *ngFor="let gameday of gamedays" [ngValue]="gameday">{{gameday}}</option>
+</select>
+
+<table>
+  <tr class="gamedaytable">
+    <td>Datum</td>
+    <td>Team 1</td>
+    <td></td>
+    <td>Ergebnis</td>
+    <td></td>
+    <td>Team 2</td>
+  </tr>
+  <tr *ngFor="let match of gameday" class="table table-striped">
+    <td>{{match.MatchDateTime}}</td>
+    <td>{{match.Team1.TeamName}}</td>
+    <td><img src="{{match.Team1.TeamIconUrl}}"></td>
+    <td *ngIf="match.MatchIsFinished && match.MatchResults[0].ResultOrderID==1">{{match.MatchResults[0].PointsTeam1}} - {{match.MatchResults[0].PointsTeam2}}</td>
+    <td *ngIf="match.MatchIsFinished == false">&nbsp; - : -</td>
+    <td><img src="{{match.Team2.TeamIconUrl}}"></td>
+    <td>{{match.Team2.TeamName}}</td>
+  </tr>
+</table>
+
+<hr>
+<div>
+<h1>Aktuelle Tabelle</h1>  
+   
+<table>
+  <tr>
+    <td>Pos</td>
+    <td></td>
+    <td>Name</td>
+    <td>Games</td>
+    <td>Points</td>
+  </tr>
+  <tr *ngFor="let team of table; index as i" class="table table-striped">
+    <td style="text-align: center">{{ i + 1 }}</td>
+    <td><img src="{{ team.TeamIconUrl }}" /></td>
+    <td>{{ team.TeamName }}</td>
+    <td>{{ team.Matches }}</td>
+    <td>{{ team.Points }}</td>
+  </tr>
+</table>
+</div>
+
+
+
+
+
+
+
+    </div>
+  </main>
+</div>
+
+
+
+
+
